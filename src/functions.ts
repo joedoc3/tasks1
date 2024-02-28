@@ -4,7 +4,7 @@
  *      C = (F - 32) * 5/9
  */
 export function fahrenheitToCelius(temperature: number): number {
-    return 0;
+    return ((temperature - 32) * 5) / 9;
 }
 
 /**
@@ -12,7 +12,17 @@ export function fahrenheitToCelius(temperature: number): number {
  * if the number is greater than zero.
  */
 export function add3(first: number, second: number, third: number): number {
-    return 0;
+    let summation = 0;
+    if (first > 0) {
+        summation += first;
+    }
+    if (second > 0) {
+        summation += second;
+    }
+    if (third > 0) {
+        summation += third;
+    }
+    return summation;
 }
 
 /**
@@ -20,7 +30,8 @@ export function add3(first: number, second: number, third: number): number {
  * mark added to the end.
  */
 export function shout(message: string): string {
-    return "";
+    //Asked ChatGPT for toUpperCase function
+    return message.toUpperCase() + "!";
 }
 
 /**
@@ -28,7 +39,8 @@ export function shout(message: string): string {
  * mark. Do not use an `if` statement in solving this question.
  */
 export function isQuestion(message: string): boolean {
-    return true;
+    //Asked ChatGPT for endsWith function
+    return message.endsWith("?");
 }
 
 /**
@@ -37,5 +49,12 @@ export function isQuestion(message: string): boolean {
  * upper or lower case), then return `false`. Otherwise, return `null`.
  */
 export function convertYesNo(word: string): boolean | null {
-    return true;
+    const lowerCaseWord = word.toLowerCase();
+    if (lowerCaseWord === "yes") {
+        return true;
+    } else if (lowerCaseWord === "no") {
+        return false;
+    } else {
+        return null;
+    }
 }
