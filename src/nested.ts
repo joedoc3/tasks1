@@ -17,7 +17,6 @@ export function getPublishedQuestions(questions: Question[]): Question[] {
  */
 export function getNonEmptyQuestions(questions: Question[]): Question[] {
     return questions.filter((questions) => {
-        // Check if any of the fields are non-empty
         return (
             questions.body !== "" ||
             questions.expected !== "" ||
@@ -210,6 +209,7 @@ export function changeQuestionTypeById(
  * can make it simpler! Break down complicated tasks into little pieces.
  */
 export function editOption(
+    //Got help from chatGPT with this function
     questions: Question[],
     targetId: number,
     targetOptionIndex: number,
