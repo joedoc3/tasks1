@@ -91,18 +91,13 @@ id,name,options,points,published
  * Check the unit tests for more examples!
  */
 export function toCSV(questions: Question[]): string {
-    let csv = "id,name,options,points,published\n";
-
-    questions.forEach((questions) => {
-        const numOptions =
-            questions.type === "multiple_choice_question"
-                ? questions.options.length
-                : 0;
-
-        csv += `${questions.id},${questions.name},${numOptions},${questions.points},${questions.published}\n`;
+    const header = "id,name,options,points,published";
+    const csvLines = questions.map((question) => {
+        const numOptions = question.options.length;
+        return `${question.id},${question.name},${numOptions},${question.points},${question.published}`;
     });
 
-    return csv;
+    return [header, ...csvLines].join("\n");
 }
 
 /**
@@ -244,22 +239,23 @@ export function editOption(
  * the duplicate inserted directly after the original question. Use the `duplicateQuestion`
  * function you defined previously; the `newId` is the parameter to use for the duplicate's ID.
  */
+
 export function duplicateQuestionInArray(
+    //Got help from chatGPT for this function
     questions: Question[],
     targetId: number,
     newId: number
 ): Question[] {
-    const duplicatedQuestions: Question[] = [];
+    const targetIndex = questions.findIndex(
+        (question) => question.id === targetId
+    );
+    if (targetIndex === -1) {
+        return [...questions];
+    }
 
-    questions.forEach((questions) => {
-        if (questions.id === targetId) {
-            // Duplicate the question with the specified targetId
-            const duplicatedQuestion = duplicateQuestion(questions, newId);
-            duplicatedQuestions.push(questions, duplicatedQuestion);
-        } else {
-            duplicatedQuestions.push(questions);
-        }
-    });
+    const duplicatedQuestion = duplicateQuestion(newId, questions[targetIndex]);
+    const updatedQuestions = [...questions];
+    updatedQuestions.splice(targetIndex + 1, 0, duplicatedQuestion);
 
-    return duplicatedQuestions;
+    return updatedQuestions;
 }
